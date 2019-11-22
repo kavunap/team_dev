@@ -15,7 +15,10 @@ class AssignsController < ApplicationController
   def destroy
     assign = Assign.find(params[:id])
     destroy_message = assign_destroy(assign, assign.user)
-	AssignMailer.assign_mail(assign.user.email, assign.user.password)
+    @team.assigns.each do |assign|  
+      AssignMailer.assign_mail(assign.user.email,assign.user.password).deliver
+      end
+	#AssignMailer.assign_mail(assign.user.email, assign.user.password)
     redirect_to team_url(params[:team_id]), notice: destroy_message
   end
 
