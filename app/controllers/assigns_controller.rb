@@ -15,6 +15,7 @@ class AssignsController < ApplicationController
   def destroy
     assign = Assign.find(params[:id])
     destroy_message = assign_destroy(assign, assign.user)
+    @team = Team.friendly.find(params[:team_id])
     @team.assigns.each do |assign|  
       AssignMailer.assign_mail(assign.user.email,assign.user.password).deliver
       end
