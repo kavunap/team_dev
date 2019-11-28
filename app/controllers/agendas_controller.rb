@@ -25,7 +25,7 @@ class AgendasController < ApplicationController
    if current_user.id==@agenda.user_id
       @agenda.destroy
       @agenda.team.assigns.each do |assign|  
-        AssignMailer.assign_mail(assign.user.email,assign.user.password).deliver
+        ContactMailer.contact_mail(assign.user.email,@agenda).deliver
       end
       #ContactMailer.contact_mail(@agenda).deliver
       redirect_to dashboard_url, notice: "agenda deleted "
